@@ -2,8 +2,8 @@ plugins {
     id 'java'
 }
 
-group 'top.bufeiniao.yuban.quarkrpc'
-version '1.0-SNAPSHOT'
+group 'top.bufeiniao.yuban.service'
+version '0.0.0.1-alpha'
 
 repositories {
     mavenCentral()
