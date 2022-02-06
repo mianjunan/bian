@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group 'top.bufeiniao.yuban.util'
+version '0.0.0.1-alpha'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+}
+
+test {
+    useJUnitPlatform()
+}

@@ -1,4 +1,5 @@
 rootProject.name = 'yuban'
-include 'quarkRPC'
 include 'service'
+include 'model'
+include 'util'
 
