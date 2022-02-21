@@ -1,0 +1,9 @@
+otherConfig:
+  - config.yml
+configInject:
+  path: top.bufeiniao.yuban
+  args:
+    service:
+      timer:
+        TimerService:
+          corePoolSize: 4

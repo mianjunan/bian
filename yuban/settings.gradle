@@ -1,5 +1,12 @@
+pluginManagement {
+    repositories {
+        maven { url 'https://repo.spring.io/milestone' }
+        maven { url 'https://repo.spring.io/snapshot' }
+        gradlePluginPortal()
+    }
+}
 rootProject.name = 'yuban'
-include 'service'
-include 'model'
-include 'util'
-
+include ':service'
+include ':model'
+include ':util'
+include ':controller'
