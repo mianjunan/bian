@@ -1,0 +1,10 @@
+test1:
+  test1: 1
+  test2: 1.23456789101112
+  test3: "123456789101112"
+  test4: 123456789101112
+  test5: true
+test2:
+  - test1
+  - test2
+  - test3

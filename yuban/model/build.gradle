@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+}
+
+group ='top.bufeiniao.yuban.model'
+version ='0.0.0.1-alpha'
+
+
+dependencies {
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.2'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.2'
+}
+
+test {
+    useJUnitPlatform()
+}
