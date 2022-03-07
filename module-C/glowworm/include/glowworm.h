@@ -36,6 +36,15 @@ typedef enum WhereOperate
     LESS_THAN = 3
 }WhereOperate;
 
+typedef enum LogLevel
+{
+    TRACE = 0,
+    DEBUG = 1,
+    INFO = 2,
+    WARN = 3,
+    ERROR =4
+}LogLevel;
+
 typedef enum BaseEventID
 {
     MESSAGE_SEND=0,
@@ -109,14 +118,7 @@ typedef union Details
     StoreDataGetDetails storeDataGetDetails;
 }Details;
 
-typedef struct Log
-{
-    int (*trace)(const char *,...);
-    int (*debug)(const char *,...);
-    int (*info)(const char *,...);
-    int (*warn)(const char *,...);
-    int (*error)(const char *,...);
-}Log;
+
 
 //初始化模块，必须在所有函数之前调用。其中moduleId由模块创建者生成，应具有唯一性，private_key为
 extern void initialize(long long module_id,unsigned char private_key[64]);
@@ -135,7 +137,7 @@ extern void update_store_data(const char *name,Decl declaration,void *data);
 
 extern void get_store_data(const char *name,Cond *condition,Decl declaration,unsigned int size);
 
-extern Log l();
+extern void log(LogLevel log_level,const char *log,...);
 
 extern void scheduled_tasks(long long time,int (*scheduled_tasks)());
 
