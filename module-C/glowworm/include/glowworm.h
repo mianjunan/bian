@@ -1,6 +1,12 @@
-//
-// Created by lpyyxy on 2022/3/3.
-//
+/**
+ * @File_name: glowworm.h
+ * @Author: lpyyxy
+ * @Version: 1.0
+ * @Date: 2022-03-08
+ * @Description: 通讯模块接口。
+*/
+
+
 #ifndef _GLOWWORM_H_
 #define _GLOWWORM_H_
 
@@ -118,9 +124,12 @@ typedef union Details
     StoreDataGetDetails storeDataGetDetails;
 }Details;
 
-
-
-//初始化模块，必须在所有函数之前调用。其中moduleId由模块创建者生成，应具有唯一性，private_key为
+/**
+ * @Function_name：初始化
+ * @Description: 初始化模块，必须在所有函数之前调用。其中moduleId由模块创建者生成，应具有唯一性，private_key为
+ *
+ *
+*/
 extern void initialize(long long module_id,unsigned char private_key[64]);
 //接收消息并调用回调函数
 extern void accept_message(Cond *condition,Decl declaration,unsigned int size,int (*messageHandle)(long long,void*));
