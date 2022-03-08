@@ -256,8 +256,7 @@ extern void update_store_data(const char *name,Decl declaration,void *data);
  * @name：要操作储存表的名字。
  * @condition：获取条件
  * @declaration：初始化储存表时用到的declaration的子集。
- * @data_quantity: 数据的数量
- * @data_length：每段数据的长度。
+ * @data_size: 数据的数量
  * @return：返回储存数据的结构体
 */
 extern StoreData get_store_data(const char *name,Cond *condition,Decl declaration,unsigned int data_size);
