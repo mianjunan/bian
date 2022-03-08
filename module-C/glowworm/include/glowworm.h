@@ -165,6 +165,16 @@ typedef struct StoreDataGetDetails
 }StoreDataGetDetails;
 
 /**
+ * @Struct_name：储存数据
+ * @Description: 从数据库获取的数据。
+*/
+typedef struct StoreData
+{
+    void** data;//数据
+    unsigned int data_size;//数据的数目
+}StoreData;
+
+/**
  * @Union_name：细节
  * @Description: 当有事件发生时，不光会返回用户id，还会返回每个事件独有的信息。
 */
@@ -250,7 +260,7 @@ extern void update_store_data(const char *name,Decl declaration,void *data);
  * @data_length：每段数据的长度。
  * @return：返回储存数据的结构体
 */
-extern void** get_store_data(const char *name,Cond *condition,Decl declaration,unsigned int data_quantity,unsigned int *data_length);
+extern StoreData get_store_data(const char *name,Cond *condition,Decl declaration,unsigned int data_size);
 
 /**
  * @Function_name：日志。
