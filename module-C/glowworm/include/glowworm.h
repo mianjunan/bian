@@ -131,37 +131,45 @@ typedef struct MessageAcceptDetails
 /**
  * @Struct_name：添加信息到数据库细节
  * @Description: 如果有信息添加到数据库，会返回添加到的行。
+ * @store_data_table_nane:进行操作的表名
 */
 typedef struct StoreDataAddDetails
 {
     const unsigned long long row;
+    const char *store_data_table_nane;
 }StoreDataAddDetails;
 
 /**
  * @Struct_name：从数据库移除信息细节
  * @Description: 如果有信息从数据库移除，会返回移除的行。
+ * @store_data_table_nane:进行操作的表名
 */
 typedef struct StoreDataRemoveDetails
 {
     const unsigned long long row;
+    const char *store_data_table_nane;
 }StoreDataRemoveDetails;
 
 /**
  * @Struct_name：更新信息到数据库细节
  * @Description: 如果有信息更新到数据库，会返回更新的行。
+ * @store_data_table_nane:进行操作的表名
 */
 typedef struct StoreDataUpdateDetails
 {
     const unsigned long long row;
+    const char *store_data_table_nane;
 }StoreDataUpdateDetails;
 
 /**
  * @Struct_name：从数据库获取信息细节
  * @Description: 如果有信息从数据库获取，会返回获取的行。
+ * @store_data_table_nane:进行操作的表名
 */
 typedef struct StoreDataGetDetails
 {
     const unsigned long long row;
+    const char *store_data_table_nane;
 }StoreDataGetDetails;
 
 /**
@@ -192,9 +200,10 @@ typedef union Details
  * @Function_name：初始化
  * @Description: 初始化模块，必须在所有函数之前调用。
  * @module_id: 由模块创建者生成，应具有唯一性，可用hash函数处理模块名称后获得。
+ * @address：服务端地址。
  * @private_key: 验证模块合法性，可以从文件中读取。
 */
-extern void initialize(long long module_id,unsigned char private_key[64]);
+extern bool initialize(long long module_id,char* address,char* private_key);
 
 /**
  * @Function_name：获取消息
@@ -206,7 +215,7 @@ extern void initialize(long long module_id,unsigned char private_key[64]);
  * @session_id：发送消息的用户的id。
  * @message：消息。
 */
-extern void accept_message(Cond *condition,Decl declaration,unsigned int size,int (*messageHandle)(long long session_id,void* message));
+extern void accept_message(Cond *condition,Decl *declaration,unsigned int size,void (*messageHandle)(long long session_id,void* message));
 
 /**
  * @Function_name：发送消息
@@ -215,7 +224,7 @@ extern void accept_message(Cond *condition,Decl declaration,unsigned int size,in
  * @declaration: 要发送消息的结构。
  * @message：消息。
 */
-extern void send_message(long long session_id,Decl declaration,void *message);
+extern void send_message(long long session_id,Decl *declaration,void *message);
 
 /**
  * @Function_name：初始化储存表。
@@ -223,7 +232,7 @@ extern void send_message(long long session_id,Decl declaration,void *message);
  * @name：要初始化储存表的名字。
  * @declaration: 要初始化储存表的结构。
 */
-extern void init_store_data(const char *name,Decl declaration);
+extern void init_store_data(const char *name,Decl *declaration);
 
 /**
  * @Function_name：添加数据到储存表。
@@ -248,7 +257,7 @@ extern void remove_store_data(const char *name,Cond *condition);
  * @declaration：初始化储存表时用到的declaration的子集。
  * @data: 该结构体的结构为初始化储存表时用到的declaration所描述的结构的子集。
 */
-extern void update_store_data(const char *name,Decl declaration,void *data);
+extern void update_store_data(const char *name,Decl *declaration,void *data);
 
 /**
  * @Function_name：从储存表中获取数据。
@@ -259,7 +268,7 @@ extern void update_store_data(const char *name,Decl declaration,void *data);
  * @data_size: 数据的数量
  * @return：返回储存数据的结构体
 */
-extern StoreData get_store_data(const char *name,Cond *condition,Decl declaration,unsigned int data_size);
+extern StoreData get_store_data(const char *name,Cond *condition,Decl *declaration,unsigned int data_size);
 
 /**
  * @Function_name：日志。
@@ -275,7 +284,7 @@ extern void log(LogLevel log_level,const char *log,...);
  * @timestamp：要执行的时间的时间戳。
  * @scheduled_tasks：要执行的任务。
 */
-extern void scheduled_tasks(long long timestamp,int (*scheduled_tasks)());
+extern void scheduled_tasks(long long timestamp,void (*scheduled_tasks)());
 
 /**
  * @Function_name：监听事件。
@@ -285,7 +294,7 @@ extern void scheduled_tasks(long long timestamp,int (*scheduled_tasks)());
  * @session_id:触发该事件的用户的用户id。
  * @details：事件的独有信息
 */
-extern void monitor(BaseEventID base_event_id,int (*message_handle)(long long session_id,Details details));
+extern void monitor(BaseEventID base_event_id,void (*message_handle)(long long session_id,Details details));
 
 /**
  * @Function_name：监听事件。
@@ -296,7 +305,7 @@ extern void monitor(BaseEventID base_event_id,int (*message_handle)(long long se
  * @details：事件的独有信息。
  * @is_execution：是否继续同意继续执行。
 */
-extern void block_monitor(BaseEventID base_event_id,int (*message_handle)(long long session_id,Details details,bool *is_execution));
+extern void block_monitor(BaseEventID base_event_id,bool (*message_handle)(long long session_id,Details details));
 
 /**
  * @Function_name：初始化配置文件。
@@ -321,7 +330,7 @@ extern void put_config(const char *name,Decl decl,void *config);
  * @decl：要获取的配置的结构
  * @return: 返回储存配置的结构体。
 */
-extern void* get_config(const char *name,Decl decl);
+extern void* get_config(const char *name,Decl *decl);
 
 /**
  * @Function_name：接收模块消息。
@@ -330,7 +339,7 @@ extern void* get_config(const char *name,Decl decl);
  * @accept_module_message：接收消息后的处理函数
  * @message: 指定的消息。
 */
-extern void accept_module_message(char *port,int (*accept_module_message)(void *message));
+extern void accept_module_message(char *port,void (*accept_module_message)(void *message));
 
 /**
  * @Function_name：发送模块消息。
@@ -352,7 +361,7 @@ extern void send_module_message(long long target_module_id,char *port,void *data
  * @get_module_data：获取数据之后运行的处理函数。
  * @return_data：获取的数据。
 */
-extern void get_module_data(long long target_module_id,char *port,void *source_data,unsigned int source_data_size,int (*get_module_data)(void *return_data));
+extern void* get_module_data(long long target_module_id,char *port,void *source_data,unsigned int source_data_size);
 
 /**
  * @Function_name：放置模块数据。
@@ -363,7 +372,7 @@ extern void get_module_data(long long target_module_id,char *port,void *source_d
  * @source_data：其他模块发送过来的数据。
  * @return_data：返回的数据。
 */
-extern void put_module_data(char *port,unsigned int return_data_size,int (*put_module_data)(void *source_data,void *return_data));
+extern void put_module_data(char *port,unsigned int return_data_size,void *(*put_module_data)(void *source_data));
 
 /**
  * @Function_name：放置缓存数据。
@@ -381,141 +390,14 @@ extern unsigned long long put_cache_data(unsigned int data_size,void *data);
  * @data_size: 要获取数据的长度。
  * @data：数据的地址。
 */
-extern void get_cache_data(unsigned long long address,int (*return_data)(unsigned int data_size,void *data));
+extern void get_cache_data(unsigned long long address,void *(*return_data)(unsigned int data_size));
 
 /**
  * @Function_name：就绪
  * @Description: 最后调用的函数，让主线程进入就绪状态。
 */
-extern void ready();
+extern void sleep();
 
-extern long long byte_array_to_long(const char *data){
-    long long temp;
-    temp=(((long long)data[0]&0xff)<<56)|
-            (((long long)data[1]&0xff)<<48)|
-            (((long long)data[2]&0xff)<<40)|
-            (((long long)data[3]&0xff)<<32)|
-            (((long long)data[4]&0xff)<<24)|
-            (((long long)data[5]&0xff)<<16)|
-            (((long long)data[6]&0xff)<<8)|
-            ((long long)data[7]&0xff);
-    return temp;
-}
-
-extern char* long_to_byte_array(long long data){
-    char bytes[]={(char)(data>>56),(char)(data>>48),(char)(data>>40),(char)(data>>32),(char)(data>>24),(char)(data>>16),(char)(data>>8),(char)(data)};
-    static char temp[8];
-    strcpy(temp,bytes);
-    return temp;
-}
-
-extern char* int_to_byte_array(int data){
-    char bytes[]={(char)(data>>24),(char)(data>>16),(char)(data>>8),(char)(data)};
-    static char temp[4];
-    strcpy(temp,bytes);
-    return temp;
-}
-
-extern Decl* normal_declaration(const char *name,BaseType type){
-    Decl* temp=(malloc(sizeof(Decl)));
-    char max_length;
-    switch (type) {
-        case BYTE:
-            max_length=1;
-            break;
-        case SHORT:
-            max_length=2;
-            break;
-        case INT:
-            max_length=4;
-            break;
-        case LONG:
-            max_length=8;
-            break;
-        case FLOAT:
-            max_length=4;
-            break;
-        case DOUBLE:
-            max_length=8;
-            break;
-        case BOOLEAN:
-            max_length=1;
-            break;
-        case OBJ:
-            max_length=0;
-            break;
-    }
-    Decl decl={
-            .name=name,
-            .type=type,
-            .Array_size=0,
-            .is_dynamic_array=false,
-            .is_address=false,
-            .child_node=NULL,
-            .child_size=0,
-
-            .max_length=max_length
-    };
-    memcpy(temp,&decl, sizeof(Decl));
-    return temp;
-}
-
-extern Decl* object_declaration(const char *name,int child_size,...){
-    Decl* temp=malloc(sizeof(Decl));
-    Decl* child_node= malloc(child_size*sizeof(Decl));
-    char max_length;
-    va_list arg_list;
-    va_start(arg_list,child_size);
-    for(int i=0;i<child_size;i++){
-        child_node[i]= va_arg(arg_list,Decl);
-        if(child_node[i].type==OBJ){
-            max_length=max_length<sizeof(void *)?sizeof(void *):max_length;
-        } else{
-            max_length=max_length<child_node[i].max_length?child_node[i].max_length:max_length;
-        }
-    }
-    va_end(arg_list);
-    Decl decl={
-            .name=name,
-            .type=OBJ,
-            .Array_size=0,
-            .is_dynamic_array=false,
-            .is_address=false,
-            .child_node=child_node,
-            .child_size=child_size,
-            .max_length=max_length
-    };
-    memcpy(temp,&decl, sizeof(Decl));
-    return temp;
-}
-
-int get_string_length(const char *str)
-{
-    int count = 0;
-    while (*str++ != '\0')
-    {
-        count++;
-    }
-    return count;
-}
-
-char get_effective_length(const unsigned int data)
-{
-    for(char i=4;i>0;i--){
-        if(data>>((i-1)<<3)&0xff){
-            return i;
-        }
-    }
-    return 0;
-}
-
-long long hash(char *data){
-    long long h = 0;
-    for (int i=get_string_length(data)-1;i>=0;i--) {
-        h = 31 * h + (data[i] & 0xff);
-    }
-    return h;
-}
 
 
 #endif

@@ -5,7 +5,7 @@ project(glowworm)
 set(
         SOURCES
         src/glowworm.c
-        src/util.c)
+        src/util.c include/util.h include/shared.h)
 
 add_library(
         ${PROJECT_NAME}
