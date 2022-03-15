@@ -4,7 +4,7 @@
 
 #include "main.h"
 
-void initialize_decl();
+void initialize_decl_cond();
 void message_submission_fun(long long session_id,void* message);
 
 int main(void)
@@ -16,7 +16,7 @@ int main(void)
                   find_config(config,"private_key"))){
         return 0;
     }
-    initialize_decl();
+    initialize_decl_cond();
     //初始化数据库
     init_store_data("FaceRecognizeStoreData", face_recognize_store_data_decl);
     accept_message(message_submission_cond,
@@ -113,7 +113,7 @@ void initialize_decl_cond()
             .target="id",
             .where_operate=EQUAL,
             .type=OBJ,
-            .value="",
+            .value="face_recognize",
             .successor=&message_submission_2
     };
     message_submission_cond=&message_submission_1;

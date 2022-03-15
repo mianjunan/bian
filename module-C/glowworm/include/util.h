@@ -115,15 +115,7 @@ extern Decl* object_declaration(const char *name,int child_size,...){
     return temp;
 }
 
-extern int get_string_length(const char *str)
-{
-    int count = 0;
-    while (*str++ != '\0')
-    {
-        count++;
-    }
-    return count;
-}
+
 
 extern char get_effective_length(const unsigned int data)
 {
@@ -135,9 +127,17 @@ extern char get_effective_length(const unsigned int data)
     return 0;
 }
 
-extern long long hash(char *data){
+extern long long array_hash(char *data , int size){
     long long h = 0;
-    for (int i=get_string_length(data)-1;i>=0;i--) {
+    for (int i=size-1;i>=0;i--) {
+        h = 31 * h + (data[i] & 0xff);
+    }
+    return h;
+}
+
+extern long long string_hash(char* data) {
+    long long h = 0;
+    for (int i = strlen(data) - 1; i >= 0; i--) {
         h = 31 * h + (data[i] & 0xff);
     }
     return h;
