@@ -203,7 +203,7 @@ typedef union Details
  * @address：服务端地址。
  * @private_key: 验证模块合法性，可以从文件中读取。
 */
-extern bool initialize(long long module_id,char* address,char* private_key);
+extern bool  (long long module_id,char* address,char* private_key);
 
 /**
  * @Function_name：获取消息
