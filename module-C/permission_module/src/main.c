@@ -7,4 +7,5 @@
 int main(void)
 {
     printf("hello %d", get_effective_length(123456));
+    printf("hello %d", get_effective_length(123456));
 }
