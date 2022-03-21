@@ -117,6 +117,7 @@ typedef struct Condition
 typedef struct MessageSendDetails
 {
     const char *id;
+    const char *type;
 }MessageSendDetails;
 
 /**
@@ -126,6 +127,7 @@ typedef struct MessageSendDetails
 typedef struct MessageAcceptDetails
 {
     const char *id;
+    const char *type;
 }MessageAcceptDetails;
 
 /**
