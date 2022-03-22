@@ -10,8 +10,9 @@ typedef struct SessionIdObtainUIdSrcData{
 }SessionIdObtainUIdSrcData;
 
 typedef struct SessionIdObtainUId{
-    long long u_Id;
+    long long UID;
 }SessionIdObtainUId;
+
 
 
 #endif

@@ -4,14 +4,13 @@
 
 #include "main.h"
 
-void initialize_decl_cond();
-void message_submission_fun(long long session_id,void* message);
+
 
 int main(void)
 {
     //初始化
     Config *config= load_config("config.cfg");
-    if(!initialize(hash("module"),
+    if(!initialize(string_hash("module"),
                   find_config(config,"address"),
                   find_config(config,"private_key"))){
         return 0;
@@ -35,11 +34,11 @@ void message_submission_fun(long long session_id,void* message)
             .target="UID",
             .where_operate=EQUAL,
             .type=LONG,
-            .value=(char *) &(((SessionIdObtainUId *) get_module_data(hash("user_module"),
+            .value=(char *) &(((SessionIdObtainUId *) get_module_data(string_hash("user_module"),
                                                                       "SessionIdObtainUID",
                                                                       &sessionIdObtainUIdSrcData,
                                                                       sizeof(sessionIdObtainUIdSrcData)))
-                                                                              ->u_Id),
+                                                                              ->UID),
             .successor=NULL
     };
 
@@ -93,9 +92,9 @@ void initialize_decl_cond()
     Decl *eigenvalues= normal_declaration("eigenvalues_package_decl",BYTE);
     eigenvalues->is_dynamic_array=true;
     Decl *timestamp= normal_declaration("timestamp",LONG);
-    timestamp->Array_size=10;
+    timestamp->array_size=10;
     Decl *is_success= normal_declaration("is_success",BOOLEAN);
-    is_success->Array_size=10;
+    is_success->array_size=10;
     face_recognize_store_data_decl = object_declaration("StoreData",
                                                         4,
                                                         UID, eigenvalues, timestamp, is_success);

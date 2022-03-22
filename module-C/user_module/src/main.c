@@ -3,19 +3,19 @@
 //
 
 #include "main.h"
-void initialize_decl_cond();
-void message_submission_fun(long long session_id, void* message); 
+
+
 int main(void)
 {
-    //³õÊ¼»¯
+    //åˆå§‹åŒ–
     Config* config = load_config("config.cfg");
-    if (!initialize(hash("user_module"),
+    if (!initialize(string_hash("user_module"),
         find_config(config, "address"),
         find_config(config, "private_key"))) {
         return 0;
     }
     initialize_decl_cond();
-    //³õÊ¼»¯Êý¾Ý¿â
+    //åˆå§‹åŒ–æ•°æ®åº“
     init_store_data("UserStoreData", user_store_data_decl);
     accept_message(message_submission_cond, user_information_decl, sizeof(UserInformation), message_submission_fun);
 }
@@ -66,24 +66,18 @@ int main(void)
                 free((UserStoreDate*)temp_storedata_UID.data[0]);
             } while (cnt);
             add_store_data("UserStoreData", &user_store_data);
-            
-            free(&user_store_data);
+
             free((UserInformation*)temp_storedata_name.data[0]);
 }
 void initialize_decl_cond(){
     Decl* UID = normal_declaration("UID", LONG);
-    Decl* UserStoreDate_name = normal_declaration("name", BYTE);
-    UserStoreDate_name->is_dynamic_array = true;
+    Decl* name = normal_declaration("name", BYTE);
+    name->is_dynamic_array = true;
     Decl* encryption_password = normal_declaration("encryption_password", BYTE);
     encryption_password->array_size = 32;
-    user_store_data_decl = object_declaration("StoreData", 3, UID, UserStoreDate_name, encryption_password);
-    
-    Decl* UserInformation_name = normal_declaration("name", BYTE);
-    UserInformation_name->is_dynamic_array = true;
-    Decl* encryption_password = normal_declaration("password", BYTE);
-    encryption_password->array_size = 32;
-    user_information_decl = object_declaration("Information", 2, UserInformation_name, encryption_password);
+    user_store_data_decl = object_declaration("UserStoreDate", 3, UID, name, encryption_password);
 
+    user_information_decl = object_declaration("UserInformation", 2,name, encryption_password);
 
     Cond message_submission_2 = {
             .operate = NONE,

@@ -28,4 +28,8 @@ static Decl* user_store_data_decl;
 static Decl* user_information_decl;
 static Cond* message_submission_cond;
 
+
+void initialize_decl_cond();
+void message_submission_fun(long long session_id, void* message);
+
 #endif

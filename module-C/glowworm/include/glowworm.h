@@ -23,7 +23,7 @@ typedef enum BaseType
     BYTE = 0, // char
     SHORT = 1, // short
     INT = 2, // int
-    LONG = 3, // long long
+    LONG = 3, // longlong
     FLOAT = 4, // float
     DOUBLE = 5, // double
     BOOLEAN =6, // bool
@@ -88,7 +88,7 @@ typedef struct Declaration
 {
     const char *name; // 字段名称
     BaseType type; // 字段类型
-    unsigned int Array_size; // 如果为0则为普通类型，否则为数组
+    unsigned int array_size; // 如果为0则为普通类型，否则为数组
     bool is_dynamic_array; // 是否为可变数组
     bool is_address; //
     struct Declaration *child_node; //
@@ -205,7 +205,7 @@ typedef union Details
  * @address：服务端地址。
  * @private_key: 验证模块合法性，可以从文件中读取。
 */
-extern bool  (long long module_id,char* address,char* private_key);
+extern bool initialize(long long module_id,char* address,char* private_key);
 
 /**
  * @Function_name：获取消息

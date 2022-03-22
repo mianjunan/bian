@@ -39,13 +39,12 @@ typedef struct EigenvaluesPackage{
 }EigenvaluesPackage;
 
 static Decl *face_recognize_store_data_decl;
-
 static Decl *store_data_update_decl;
-
 static Decl *eigenvalues_package_decl;
-
 static Cond *message_submission_cond;
-
 static Cond *message_initialize_cond;
+
+void initialize_decl_cond();
+void message_submission_fun(long long session_id,void* message);
 
 #endif

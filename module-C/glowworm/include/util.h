@@ -75,7 +75,7 @@ extern Decl* normal_declaration(const char *name,BaseType type){
     Decl decl={
             .name=name,
             .type=type,
-            .Array_size=0,
+            .array_size=0,
             .is_dynamic_array=false,
             .is_address=false,
             .child_node=NULL,
@@ -104,7 +104,7 @@ extern Decl* object_declaration(const char *name,int child_size,...){
     Decl decl={
             .name=name,
             .type=OBJ,
-            .Array_size=0,
+            .array_size=0,
             .is_dynamic_array=false,
             .is_address=false,
             .child_node=child_node,
@@ -127,20 +127,16 @@ extern char get_effective_length(const unsigned int data)
     return 0;
 }
 
-extern long long array_hash(char *data , int size){
+extern long long array_hash(const char *data , unsigned long size){
     long long h = 0;
-    for (int i=size-1;i>=0;i--) {
+    for (unsigned long i=size-1;i>=0;i--) {
         h = 31 * h + (data[i] & 0xff);
     }
     return h;
 }
 
-extern long long string_hash(char* data) {
-    long long h = 0;
-    for (int i = strlen(data) - 1; i >= 0; i--) {
-        h = 31 * h + (data[i] & 0xff);
-    }
-    return h;
+extern long long string_hash(const char* data) {
+    return array_hash(data,strlen(data));
 }
 
 extern char* find_config(Config *config,const char *key)
@@ -226,6 +222,22 @@ long long get_timestamp(void)//获取时间戳函数
     tmp = tmp + (tv.tv_usec / 1000);
 
     return tmp;
+}
+
+typedef struct String
+{
+    char *value;
+    unsigned long length;
+}string;
+
+static Decl String;
+
+string to_string(const char * value){
+    string str={
+            .value=value,
+            .length=strlen(value)
+    };
+    return str;
 }
 
 #endif
