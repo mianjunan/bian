@@ -226,8 +226,8 @@ long long get_timestamp(void)//获取时间戳函数
 
 typedef struct String
 {
-    char *value;
-    unsigned long length;
+    unsigned int value_length;
+    void* value;
 }string;
 
 static Decl String;
@@ -235,7 +235,7 @@ static Decl String;
 string to_string(const char * value){
     string str={
             .value=value,
-            .length=strlen(value)
+            .value=strlen(value)
     };
     return str;
 }

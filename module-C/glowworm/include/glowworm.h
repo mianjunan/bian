@@ -138,7 +138,7 @@ typedef struct MessageAcceptDetails
 typedef struct StoreDataAddDetails
 {
     const unsigned long long row;
-    const char *store_data_table_nane;
+    const char *store_data_table_name;
 }StoreDataAddDetails;
 
 /**
@@ -149,7 +149,7 @@ typedef struct StoreDataAddDetails
 typedef struct StoreDataRemoveDetails
 {
     const unsigned long long row;
-    const char *store_data_table_nane;
+    const char *store_data_table_name;
 }StoreDataRemoveDetails;
 
 /**
@@ -160,7 +160,7 @@ typedef struct StoreDataRemoveDetails
 typedef struct StoreDataUpdateDetails
 {
     const unsigned long long row;
-    const char *store_data_table_nane;
+    const char *store_data_table_name;
 }StoreDataUpdateDetails;
 
 /**
@@ -171,7 +171,7 @@ typedef struct StoreDataUpdateDetails
 typedef struct StoreDataGetDetails
 {
     const unsigned long long row;
-    const char *store_data_table_nane;
+    const char *store_data_table_name;
 }StoreDataGetDetails;
 
 /**
