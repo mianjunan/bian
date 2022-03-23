@@ -9,7 +9,7 @@ int main(void)
 {
     //初始化
     Config* config = load_config("config.cfg");
-    if (!initialize(string_hash("user_module"),
+    if (!initialize(hash_string("user_module"),
         find_config(config, "address"),
         find_config(config, "private_key"))) {
         return 0;
@@ -39,7 +39,9 @@ int main(void)
            
             UserStoreDate user_store_data;
             bool cnt = false;
-            user_store_data.UID = array_hash(((UserInformation*)message)->name,((UserInformation*)message)->name_size) & array_hash(((UserInformation*)message)->encryption_password,32) & get_timestamp();
+            user_store_data.UID =
+                    hash_array(((UserInformation *) message)->name, ((UserInformation *) message)->name_size) &
+                                  hash_array(((UserInformation *) message)->encryption_password, 32) & get_timestamp();
             user_store_data.name = ((UserInformation*)message)->name;
             user_store_data.name_size = ((UserInformation*)message)->name_size;
             int i;

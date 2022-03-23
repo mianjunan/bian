@@ -127,16 +127,16 @@ extern char get_effective_length(const unsigned int data)
     return 0;
 }
 
-extern long long array_hash(const char *data , unsigned long size){
+extern long long hash_array(void *data , unsigned long size){
     long long h = 0;
     for (unsigned long i=size-1;i>=0;i--) {
-        h = 31 * h + (data[i] & 0xff);
+        h = 31 * h + (((char *)data)[i] & 0xff);
     }
     return h;
 }
 
-extern long long string_hash(const char* data) {
-    return array_hash(data,strlen(data));
+extern long long hash_string(const char* data) {
+    return hash_array((void *)data, strlen(data));
 }
 
 extern char* find_config(Config *config,const char *key)
@@ -227,17 +227,155 @@ long long get_timestamp(void)//获取时间戳函数
 typedef struct String
 {
     unsigned int value_length;
-    void* value;
-}string;
+    char *value;
+}String;
 
-static Decl String;
+static Decl string;
 
-string to_string(const char * value){
-    string str={
-            .value=value,
-            .value=strlen(value)
-    };
+String* to_string(const char *value){
+    void *temp= malloc(strlen(value));
+    memcpy(temp,value, sizeof(temp));
+    String *str= malloc(sizeof(String));
+    str->value=temp;
+    str->value_length= sizeof(temp);
     return str;
+}
+
+long long string_hash(String *value){
+    return hash_array(value->value,value->value_length);
+}
+
+bool string_equals(String *tar_key,String *src_key){
+    for(unsigned int i=(src_key->value_length-1);i>=0;i--){
+        if(tar_key->value[i]!=src_key->value[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
+typedef struct MapDatum
+{
+    struct MapDatum* left;
+    struct MapDatum* right;
+    void *key;
+    void *value;
+}MapDatum;
+
+typedef struct Map
+{
+    long long (*hash)(void *key);
+    bool (*equals)(void *tar_key,void *src_key);
+    MapDatum *map_datum;
+}Map;
+
+
+extern void* map_get(Map *map,void *key){
+    MapDatum *temp=map->map_datum;
+    for(;;){
+        if(!temp){
+            return NULL;
+        }else if(map->hash(key)==map->hash(temp->key)&&map->equals(key,temp->key)){
+            return temp->value;
+        }else{
+            if(map->hash(temp->key)<=map->hash(key)){
+                temp=temp->right;
+            }else if(map->hash(temp->key)>map->hash(key)){
+                temp=temp->left;
+            }
+        }
+    }
+}
+
+
+bool map_exist(Map *map,void *key){
+    return map_get(map,key)!=NULL;
+}
+
+bool map_put(Map *map,void *key,void *value){
+    if(map_exist(map,key)){
+        return false;
+    }else{
+        MapDatum *temp;
+        MapDatum *mapDatum= malloc(sizeof(MapDatum));
+        mapDatum->key=key;
+        mapDatum->value=value;
+        for (;;){
+            if(map->hash(temp->key)<=map->hash(key)){
+                if(!temp->right){
+                    temp->right=mapDatum;
+                    return true;
+                }else{
+                    temp=temp->right;
+                }
+            }else if(map->hash(temp->key)>map->hash(key)){
+                if(!temp->left){
+                    temp->left=mapDatum;
+                    return true;
+                }else{
+                    temp=temp->left;
+                }
+            }
+        }
+    }
+}
+
+
+bool map_remove(Map *map,void *key,void *value){
+    if(map_exist(map,key)){
+        return false;
+    }else{
+        MapDatum *temp;
+        MapDatum *temp_left;
+        MapDatum *temp_right;
+        for (;;){
+            if(map->hash(temp->key)<=map->hash(key)){
+                if(map->hash(key)==map->hash(temp->right->key)&&map->equals(key,temp->right->key)){
+                    temp_left=temp->right->left;
+                    temp_right=temp->right->right;
+                    free(temp->right);
+                    if(temp_right!=NULL) {
+                        temp->right = temp_right;
+                    } else{
+                        temp->right = temp_left;
+                        return true;
+                    }
+                    for(;;){
+                        if(temp_right->left!=NULL){
+                            temp_right=temp_right->left;
+                        } else{
+                            temp_right->left=temp_left;
+                            return true;
+                        }
+                    }
+                }else{
+                    temp=temp->right;
+                }
+            }else {
+                if(map->hash(key)==map->hash(temp->left->key)&&map->equals(key,temp->left->key)){
+                    temp_left=temp->left->left;
+                    temp_right=temp->left->right;
+                    free(temp->left);
+                    if(temp_right!=NULL) {
+                        temp->left = temp_left;
+                    } else{
+                        temp->left = temp_right;
+                        return true;
+                    }
+                    for(;;){
+                        if(temp_left->right!=NULL){
+                            temp_left=temp_left->right;
+                        } else{
+                            temp_left->right=temp_right;
+                            return true;
+                        }
+                    }
+                }else{
+                    temp=temp->left;
+                }
+            }
+        }
+    }
 }
 
 #endif

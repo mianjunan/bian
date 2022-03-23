@@ -10,7 +10,7 @@ int main(void)
 {
     //初始化
     Config *config= load_config("config.cfg");
-    if(!initialize(string_hash("module"),
+    if(!initialize(hash_string("module"),
                   find_config(config,"address"),
                   find_config(config,"private_key"))){
         return 0;
@@ -34,7 +34,7 @@ void message_submission_fun(long long session_id,void* message)
             .target="UID",
             .where_operate=EQUAL,
             .type=LONG,
-            .value=(char *) &(((SessionIdObtainUId *) get_module_data(string_hash("user_module"),
+            .value=(char *) &(((SessionIdObtainUId *) get_module_data(hash_string("user_module"),
                                                                       "SessionIdObtainUID",
                                                                       &sessionIdObtainUIdSrcData,
                                                                       sizeof(sessionIdObtainUIdSrcData)))
