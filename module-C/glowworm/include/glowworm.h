@@ -209,7 +209,7 @@ extern bool initialize(long long module_id,char* address,char* private_key);
 
 /**
  * @Function_name：获取消息
- * @Description: 获取客户端发给服务端的消息。
+ * @Description: 获取客户端发给服务端的消息。 
  * @condition: 用来筛选要获取的消息。
  * @declaration: 要获取消息的结构。
  * @size：要获取消息的长度。

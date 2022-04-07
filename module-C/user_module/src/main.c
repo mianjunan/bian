@@ -17,7 +17,7 @@ int main(void)
     initialize_decl_cond();
     //初始化数据库
     init_store_data("UserStoreData", user_store_data_decl);
-    accept_message(message_submission_cond, user_information_decl, sizeof(UserInformation), message_submission_fun);
+    accept_message(message_submission_cond, user_information_decl, sizeof(UserInformation) message_submission_fun);
 }
     void message_submission_fun(long long session_id, void* message){
         Cond store_data_name = {
@@ -93,7 +93,7 @@ void initialize_decl_cond(){
             .operate = AND,
             .target = "id",
             .where_operate = EQUAL,
-            .type = OBJ,
+            .type = OBJ
             .value = "user",
             .successor = &message_submission_2
 
