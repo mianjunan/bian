@@ -1,0 +1,56 @@
+input {
+    font-family: 'Lucida Grande', Tahoma, Verdana, sans-serif;
+    font-size: 14px;
+    height: 34px
+}
+
+input[type=text], input[type=password] {
+    margin: 5px;
+    padding: 0 10px;
+    color: #404040;
+    background: white;
+    border: 1px solid;
+    border-color: #c4c4c4 #d1d1d1 #d4d4d4;
+    border-radius: 2px;
+    outline: 5px solid #eff4f7;
+    -moz-outline-radius: 3px;
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    border-color: #afafaf;
+    outline-color: #dceefc;
+    outline-offset: 0;
+}
+
+input[type=button], input[type=submit] {
+    padding: 0 18px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #858585;
+    text-shadow: 0 1px #f1f1f1;
+    background: #efefef;
+    border: 1px solid;
+    border-color: #d0d0d0 #c9c9c9 #bebebe;
+    border-radius: 5px;
+    outline: 0;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    background-image: -webkit-linear-gradient(top, #f6f6f6, #efefef);
+    background-image: -moz-linear-gradient(top, #f6f6f6, #efefef);
+    background-image: -o-linear-gradient(top, #f8f8f8, #f1f1f1);
+    background-image: linear-gradient(to bottom, #fafafa, #f1f1f1);
+    -webkit-box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: inset 0 1px white, 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+
+
+input[type=button]:active, input[type=submit]:active {
+    background: #cde5ef;
+    border-color: #9eb9c2 #b3c0c8 #b4ccce;
+    -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+}

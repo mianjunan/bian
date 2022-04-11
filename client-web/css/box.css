@@ -1,0 +1,73 @@
+@CHARSET "UTF-8";
+
+.box {
+
+    position: relative;
+    margin:40px auto;
+    padding: 20px 20px 20px;
+
+    width: 310px;
+
+    background: white;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px
+    rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px
+    rgba(0, 0, 0, 0.3);
+    /*Transition*/
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+
+.box:before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    bottom: -8px;
+    left: -8px;
+    z-index: -1;
+    background: rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+}
+
+.box h1 {
+    margin: -20px -20px 21px;
+    line-height: 40px;
+    font-size: 15px;
+    font-weight: bold;
+    color: #555;
+
+    text-align: center;
+
+    text-shadow: 0 1px white;
+    background: #f3f3f3;
+    border-bottom: 1px solid #cfcfcf;
+    border-radius: 3px 3px 0 0;
+    -webkit-box-shadow: 0 1px whitesmoke;
+    box-shadow: 0 1px whitesmoke;
+}
+
+.box h3{
+    text-align:center;
+    color:#ff0000;
+}
+
+.box div{
+    text-align: center;
+}
+
+.box p {
+    margin: 20px auto;
+    text-align:center;
+}
+.box p input[type=text], .box input[type=password]{
+    width: 90%;
+}
+
+.box p:first-child {
+    margin-top: 0;
+}
+

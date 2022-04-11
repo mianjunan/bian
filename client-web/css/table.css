@@ -1,0 +1,31 @@
+.table{
+    position: relative;
+    margin:40px auto;
+    padding: 20px 20px 20px;
+
+    width: 640px;
+
+    background: white;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px
+    rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 200px rgba(255, 255, 255, 0.5), 0 1px 2px
+    rgba(0, 0, 0, 0.3);
+    /*Transition*/
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+
+}
+table.handle{
+    border:1px solid #000000;
+    width: 100%;
+}
+th{
+    border:1px solid #000000;
+}
+td{
+    border:1px solid #000000;
+    text-align: center;
+}
