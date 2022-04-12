@@ -9,15 +9,29 @@ version ='0.0.0.1-alpha'
 
 
 dependencies {
-    implementation group: 'com.google.code.gson', name: 'gson'
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api'
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
-    implementation group: 'org.springframework', name: 'spring-websocket'
+    implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.8.2'
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.8.2'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.6.5'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc', version: '2.6.5'
+    implementation group: 'org.springframework', name: 'spring-websocket', version: '5.3.17'
+    implementation group: 'net.vrallev.ecc', name: 'ecc-25519-java', version: '1.0.3'
     implementation project(':util')
     implementation project(':model')
+
 }
 
 test {
     useJUnitPlatform()
+}
+
+task 'create-dirs' {
+    doLast {
+        sourceSets*.java.srcDirs*.each {
+            it.mkdirs()
+        }
+        sourceSets*.resources.srcDirs*.each {
+            it.mkdirs()
+        }
+    }
 }

@@ -2,6 +2,6 @@ package top.bufeiniao.yuban.model.data;
 
 import java.util.List;
 
-public record DataRecord(int id, List<DatumRecord> type) {
+public record ParentData(String id, List<?> data){
 
 }

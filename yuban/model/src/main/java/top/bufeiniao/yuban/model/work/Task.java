@@ -1,5 +1,5 @@
 package top.bufeiniao.yuban.model.work;
 
 public interface Task <T>{
-    void main(T data);
+    void main(T t);
 }
