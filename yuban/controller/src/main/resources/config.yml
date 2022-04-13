@@ -7,3 +7,7 @@ configInject:
       timer:
         TimerService:
           corePoolSize: 4
+      rpc:
+        RPCService:
+          port: 1207
+          publicKey: [39, -2, 68, -24, -72, -118, -81, -96, 110, -113, -64, -39, 25, 29, -22, 26, 46, -24, 109, -10, 37, 24, -53, 13, -79, -103, 42, 24, 58, 40, 36, 49]
