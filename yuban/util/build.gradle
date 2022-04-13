@@ -17,3 +17,6 @@ test {
     useJUnitPlatform()
 }
 
+compileJava {
+    options.compilerArgs += ['--enable-preview']
+}

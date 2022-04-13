@@ -1,21 +1,18 @@
 package top.bufeiniao.yuban.service.rpc;
 
-import jdk.jshell.DeclarationSnippet;
-import net.vrallev.java.ecc.Ecc25519Helper;
-import net.vrallev.java.ecc.KeyHolder;
+import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.bufeiniao.yuban.model.data.Declaration;
 import top.bufeiniao.yuban.model.work.Obtain;
-import top.bufeiniao.yuban.model.work.Task;
 import top.bufeiniao.yuban.service.Service;
 import top.bufeiniao.yuban.service.config.ConfigInject;
+import top.bufeiniao.yuban.util.ED25519;
 import top.bufeiniao.yuban.util.Util;
 import top.bufeiniao.yuban.util.callback.Callback;
 import top.bufeiniao.yuban.util.callback.Listener;
 import top.bufeiniao.yuban.util.pipeline.Pipeline;
 import top.bufeiniao.yuban.util.pipeline.PipelineTask;
-import javax.annotation.PostConstruct;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,14 +20,13 @@ import java.security.SecureRandom;
 import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
+
 public class RPCService {
 
     @ConfigInject
     private static int port;
     @ConfigInject
-    private static byte[] publicKeySignature;
-    @ConfigInject
-    private static byte[] publicKeyDiffieHellman;
+    private static byte[] publicKey;
 
     private static ServerSocket server;
 
@@ -60,11 +56,10 @@ public class RPCService {
         }
     });
 
-    private static Ecc25519Helper helper;
 
     @PostConstruct
     public void init(){
-        helper=new Ecc25519Helper(new KeyHolder(publicKeyDiffieHellman,publicKeySignature));
+
         try {
             server =new ServerSocket(port);
         } catch (IOException e) {
@@ -98,7 +93,7 @@ public class RPCService {
                     log.warn("模块连接失败，未读取到模块返回信息");
                     return;
                 }
-                if(!helper.isValidSignature(nonce,signature)){
+                if(!ED25519.checkValid(nonce,signature,publicKey)){
                     log.warn("私钥验证错误");
                     return;
                 }
