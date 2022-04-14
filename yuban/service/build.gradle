@@ -13,11 +13,17 @@ dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-jdbc'
     implementation group: 'org.springframework', name: 'spring-websocket'
     implementation project(':util')
     implementation project(':model')
+
 }
 
 test {
     useJUnitPlatform()
+}
+
+compileJava {
+    options.compilerArgs += ['--enable-preview']
 }

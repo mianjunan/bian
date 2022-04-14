@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+
+    <meta charset="UTF-8">
+    <title>狴犴</title>
+
+    <link rel="styleSheet" href="css/theme.css">
+    <link rel="styleSheet" href="css/box.css">
+    <link rel="styleSheet" href="css/input.css">
+    <link rel="styleSheet" href="css/wait.css">
+    <link rel="styleSheet" href="css/exam_paper.css">
+
+
+    <script src="js/sha256.js"></script>
+    <script src="js/main.js"></script>
+
+</head>
+<body>
+
+<div id="start" class="box" style="display: none;">
+    <h1>进入</h1>
+    <form id="join" onsubmit="join(); return false;" accept-charset="UTF-8" style="margin-bottom: 0">
+        <p>
+            <label for="name"></label><input type="text" name="name" value="" id="name"
+                                             placeholder="名称" required>
+        </p>
+        <p>
+            <label for="password"></label><input type="password" name="password" value="" id="password"
+                                                 placeholder="密码" required>
+        </p>
+        <h3 id="hint" ></h3>
+        <p id="normal_button" style="margin-bottom: 0;">
+            <input id="login" type="submit" name="login" value="登录" onclick="button='login';" style="margin-right: 30px">
+            <input id="register" type="submit" name="register" value="注册" onclick="button='register';">
+        </p>
+        <p id="admin_button" style="margin-bottom: 0;display: none;">
+            <input id="admin_login" type="submit" name="admin_login" value="管理员登录" onclick="button='admin_login';" style="margin-right: 30px">
+            <input id="normal_login" type="submit" name="normal_login" value="普通用户登录" onclick="button='login';">
+        </p>
+        <div id="wait" class="loader" style="display: none;">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </form>
+</div>
+
+<div id="normal">
+    <div id="operate">
+        <div id="groups">
+            <details>
+                <summary class="group">考试系统</summary>
+                <div class="entry">
+                    <p onclick="join()">查看考试</p>
+                </div>
+                <div class="entry">
+                    <p>试卷</p>
+                </div>
+            </details>
+            <details>
+                <summary class="group">查询系统</summary>
+                <div class="entry">
+                    <p onclick="join()">查看成绩</p>
+                </div>
+            </details>
+        </div>
+
+    </div>
+    <div id="exam_browse">
+
+    </div>
+    <div id="exam_paper">
+        <div id="index">
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >2</span> </button>
+            <button class="serial" ><span >3</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+            <button class="serial" ><span >1</span> </button>
+        </div>
+        <div id="question">
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
